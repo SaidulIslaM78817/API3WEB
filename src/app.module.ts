@@ -1,12 +1,9 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminModule } from './admin/admin.module';
-// import { typeOrmConfig } from './config/typeromConfig';
+
 import { ProductModule } from './product/product.module';
 import { AuthModule } from './auth/auth.module';
-
-
-
 
 @Module({
   imports: [
@@ -17,13 +14,14 @@ import { AuthModule } from './auth/auth.module';
       username: 'postgres',
       password: 'sami',
       database: 'ShopOnline',
-      entities: [ __dirname + '/**/*.entity{.ts,.js}', ],
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
-    
-    AdminModule, ProductModule,AuthModule  ],
-  controllers: [],
-  providers: [],
-})
 
+    AdminModule,
+    ProductModule,
+    AuthModule,
+  ],
+  exports: [TypeOrmModule],
+})
 export class AppModule {}

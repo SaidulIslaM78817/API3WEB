@@ -1,15 +1,16 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common'; // Import forwardRef
+import { AdminModule } from '../admin/admin.module'; // Import AdminModule
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './jwt.strategy';
+import { jwtConstants } from './constants';
 
 @Module({
   imports: [
+    forwardRef(() => AdminModule), // Use forwardRef to avoid circular dependency
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'defaultSecret', // Use environment variables for secrets
-      signOptions: { expiresIn: '1h' },
+      global: true,
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '120s' },
     }),
   ],
-  providers: [JwtStrategy],
-  exports: [JwtModule, JwtStrategy],
 })
 export class AuthModule {}

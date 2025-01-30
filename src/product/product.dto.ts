@@ -1,17 +1,14 @@
-import {IsNotEmpty, IsNumber, IsString, IsOptional} from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, IsOptional } from 'class-validator';
 
 export class ProductAddDTO {
-    pid:number;
+  pid: number;
 
-    @IsNotEmpty({message: "Product name must be provided!"})
-    productType:string;
+  @IsNotEmpty({ message: 'Product name must be provided!' })
+  productType: string;
 
+  @IsOptional()
+  @IsString()
+  photoFileName?: string; // Optional for cases where no photo is uploaded
 
-    @IsOptional()
-    @IsString()
-    photoFileName?: string; // Optional for cases where no photo is uploaded
-
-    
-    AdminID:number;
-
+  AdminID: number;
 }
